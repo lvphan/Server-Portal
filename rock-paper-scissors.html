@@ -1,0 +1,188 @@
+<style type="text/css">
+@media screen and (max-width: 768px) {
+    h2 {
+        font-size: 32px;
+    }
+
+    p {
+        font-size: 25px;
+    }
+
+    div {
+        font-size: 25px;
+    }
+
+    .playerChoice {
+        font-size: 25px;
+        padding: 10px;
+    }
+
+    .endButton {
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .resetButton {
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    h2 {
+        font-size: 70px;
+    }
+
+    p {
+        font-size: 60px;
+    }
+
+    div {
+        font-size: 60px;
+    }
+
+    .playerChoice {
+        font-size: 70px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .endButton {
+        font-size: 70px;
+        padding: 20px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .resetButton {
+        font-size: 70px;
+        padding: 20px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="eng">
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Rock, Paper, Scissors</title>
+</head>
+
+<body>
+	<h2>Current Round:</h2>
+	<p id="player">Player: 👊</p>
+	<p id="computer">Computer: 👊</p>
+
+	<button class="playerChoice">👊</button>
+	<button class="playerChoice">✋</button>
+	<button class="playerChoice">✌️</button>
+
+	<h2>Score:</h2>
+	<div id="playerScore">Player: 0</div>
+	<div id="computerScore">Computer: 0</div>
+	<button id="end" class="endButton">End Game</button>
+	<button id="reset" class="resetButton">Reset Game</button>
+
+</body>
+
+<script type="text/javascript">let selection = document.querySelectorAll(".playerChoice");
+
+selection.forEach(button => {
+
+  button.addEventListener("click", startRound);
+});
+
+let player = document.getElementById("player");
+let computer = document.getElementById("computer");
+
+let playerScore = 0;
+let computerScore = 0;
+
+let playerScoreDiv = document.getElementById("playerScore");
+let computerScoreDiv = document.getElementById("computerScore");
+
+let hands = ["👊", "✋", "✌️"];
+
+function startRound() {
+
+  let computerChoice = Math.floor(Math.random() * 3);
+
+  player.textContent = `Player: ${this.textContent}`;
+  computer.textContent = "Computer: " + hands[computerChoice];
+
+  if (this.textContent === "👊") {
+
+    if (computerChoice === 1) { //✋
+      computerScore++;
+    } else if (computerChoice === 2) {
+      playerScore++;
+    }
+
+  } else if (this.textContent === "✋") {
+
+    if (computerChoice === 0) {
+      playerScore++;
+    } else if (computerChoice === 2) {
+      computerScore++;
+    }
+
+  } else {
+
+    if (computerChoice === 0) {
+      computerScore++;
+    } else if (computerChoice === 1) {
+      playerScore++;
+    }
+
+  }
+
+  playerScoreDiv.textContent = `Player: ${playerScore}`;
+  computerScoreDiv.textContent = `Computer: ${computerScore}`;
+
+}
+
+let end = document.getElementById("end");
+end.addEventListener("click", endGame);
+
+function endGame() {
+
+  if (playerScore > computerScore) {
+    alert("Player Wins!");
+    player.textContent = 'Player: WINNER';
+    computer.textContent = 'Computer: LOSER';
+  } else if (computerScore > playerScore) {
+    alert("Computer Wins!")
+    player.textContent = 'Player: LOSER';
+    computer.textContent = 'Computer: WINNER';
+  } else if (playerScore === computerScore) {
+    alert("Tie :(");
+    player.textContent = 'Player: TIE';
+    computer.textContent = 'Computer: TIE';
+  } else {
+    alert("Did you start yet?");
+  }
+
+}
+
+let reset = document.getElementById("reset")
+reset.addEventListener("click", resetGame);
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+
+  player.textContent = `Player: ` + hands[0];
+  computer.textContent = "Computer: " + hands[0];
+
+  playerScoreDiv.textContent = `Player: ${playerScore}`;
+  computerScoreDiv.textContent = `Computer: ${computerScore}`;
+}
+</script>
+</html>
